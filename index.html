@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="content-language" content="en">
+	<title>Wedding Roulette</title>
+	<meta name="keywords" content="wedding sites, wedding websites, engagement sites, engagement websites">
+	<meta name="description" content="Spin the wheel to stumble upon thousands of couples' wedding websites.">
+	<meta property="og:title" content="Wedding Roulette" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://www.weddingroulette.com" />
+	<meta property="og:image" content="" />
+	<meta property="og:site_name" content="Wedding Roulette" />
+	<meta property="fb:admins" content="11147" />
+	<script type="text/javascript" src="baby-names-1985.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>    
+	<link href="css/styles.css" rel="stylesheet" type="text/css" media="screen, projection"/>
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-22822166-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</head>
+<body>
+<div id="bar">
+	<div id="title">WeddingRoulette</div>
+	<div class="url"><span id="url">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+	<div id="sharing">
+		<a href="http://twitter.com/share" class="twitter-share-button" data-text="Spinning myself dizzy on WeddingRoulette.com:" data-count="horizontal" data-via="jsvine">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+		<div id="fb">
+			<!-- <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.weddingroulette.com&amp;send=true&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe> -->
+		</div>
+	</div>
+	<div class="buttons">
+		<a href="#" id="refresh" class="positive">Spin the Wheel!</a>
+		<a href="#" id="flip" class="neutral">Flip the Names!</a>
+		<div style="width: 100px;"><a href="#" id="settings_toggle" class="neutral">Settings</a></div>		
+	</div>
+</div>
+<div id="settings">
+	<div class="setting"> 
+	Use top <select id="cutoff">
+			<option value="25">25</option>
+			<option value="50">50</option>
+			<option selected value="100">100</option>
+			<option value="500">500</option>
+			<option value="1000">1,000</option>
+		</select> boy and girl baby names from 1985.
+	</div>
+	<div class="setting"> 
+	Give <select id="rand_mode">
+				<option selected value="pow">preference</option>
+				<option value="raw">no preference</option>
+			</select> to more popular names.
+	</div>
+	<div class="setting"> 
+	Look for <select id="orientation">
+				<option selected value="opposite">opposite-sex</option>
+				<option value="same">same-sex</option>
+			</select> couples.
+	</div>
+	<div class="setting"> 
+	Try <select id="endings">
+				<option value="com">.com</option>
+				<option value="net">.net</option>
+				<option selected value="both">both .com and .net</option>
+			</select> addresses.
+	</div>
+	<hr/>
+	<div class="setting">A weekend project by <a href='http://twitter.com/jsvine' target='_blank'>@jsvine</a>.<br/>With help from the <a href='http://domai.nr/api/docs/json' target='_blank'>Domai.nr API</a>.</div>
+</div>
+<div id="start"></div>
+<iframe src="start.html?v=1" id="f" scrolling="no"></iframe>
+<script src="wr.js" type="text/javascript"></script>
+</body>
+</html>
