@@ -31,18 +31,12 @@
 		$img.attr({ 
 			src: "http://" + domain + "/favicon.ico",
 		});
-		var pending = true;
 		$img.load(function (e) {
-			pending = false;
 			success.apply(this, [ e, domain ]);
 		});
 		$img.error(function (e) {
-			pending = false;
 			error.apply(this, [e, domain ]);
 		});
-		setTimeout(function () {
-			if (pending) { $img.error(); }
-		}, 1 * 1e3);
 	};
 
 	var onSuccess = function (e, domain) {
