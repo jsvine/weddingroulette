@@ -43,27 +43,42 @@
 		ELEMENTS.$f.attr({ src: "http://" + domain });
 		ELEMENTS.$domain.removeClass("error");
 		ELEMENTS.$domain.addClass("success");
-		ELEMENTS.$f[0].onload = function() { 
+		window.setTimeout(function () {
 			ELEMENTS.$top.removeClass("max");
 			ELEMENTS.$f.show();
 			ELEMENTS.$refresh.show();
-		};
+		}, 0.5 * 1e3);
 	};
 
 	var onError = function (e, domain) {
 		generateDomain();
 	};
 
+	var Domain = function (first, last, tld) {
+		this.first = first;
+		this.last = last;
+		this.tld = tld;
+		this.domain = first + "and" + last + tld;
+		this.url = "http://" + this.domain;
+		this.html = "<span class='name first'>" + first + "</span><span class='and'>and</span><span class='name last'>" + last + "</span><span class='tld'>" + tld + "</span>";
+	};
+
+	Domain.prototype = {
+		test: function () {
+			testFavicon(this.domain, onSuccess, onError);
+		}	
+	};
+
 	var generateDomain = function () {
 		fetchNames(1986, function (data) { 
-			var domain = sample(data, powerWeight)[0] + "and" + sample(data, powerWeight)[1] + ".com";
-			ELEMENTS.$f.hide();
+			var domain = new Domain(sample(data, powerWeight)[0], sample(data, powerWeight)[1], ".com");
+			ELEMENTS.$f.attr({ "src": "" });
 			ELEMENTS.$refresh.hide();
 			ELEMENTS.$top.addClass("max");
 			ELEMENTS.$domain.removeClass("success");
 			ELEMENTS.$domain.addClass("error");
-			ELEMENTS.$domain.html(domain);
-			testFavicon(domain, onSuccess, onError);
+			ELEMENTS.$domain.html(domain.html);
+			domain.test();
 		});
 	};
 	ELEMENTS.$refresh.click(generateDomain);

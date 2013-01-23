@@ -12,8 +12,7 @@ body, html {
 	height: 30px;
 	background-color: #EEE;
 	color: #333;
-	overflow: auto;
-	border-bottom: 3px double #333;
+	border-bottom: 1px solid #333;
     -webkit-transition: height;
     -webkit-transition-duration: 0.5s;
     -webkit-transition-timing-function: ease-out;
@@ -32,7 +31,7 @@ body, html {
 	top: 0;
 	right: 0;
 	display: none;
-	font-size: 28px;
+	font-size: 30px;
 	padding: 0 0.25em;
 	line-height: 28px;
 	cursor: pointer;
@@ -43,6 +42,7 @@ body, html {
 	line-height: 30px;
 	text-align: center;
 	color: #999;
+	text-transform: uppercase;
 }
 
 #top.max #domain {
@@ -56,13 +56,22 @@ body, html {
 	color: #000;	
 }
 
+#domain .name {
+	font-weight: bold;
+}
+
+#domain .and, #domain .tld {
+	font-size: 0.8em;
+	color: #999;
+}
+
 iframe#f {
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	left: 0;
 	top: 0;
-	padding-top: 30px;
+	padding-top: 31px;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
