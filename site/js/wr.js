@@ -54,13 +54,13 @@
 		generateDomain();
 	};
 
-	var Domain = function (first, last, tld) {
+	var Domain = function (first, second, tld) {
 		this.first = first;
-		this.last = last;
+		this.second = second;
 		this.tld = tld;
-		this.domain = first + "and" + last + tld;
+		this.domain = first + "and" + second + tld;
 		this.url = "http://" + this.domain;
-		this.html = "<span class='name first'>" + first + "</span><span class='and'>and</span><span class='name last'>" + last + "</span><span class='tld'>" + tld + "</span>";
+		this.html = "<span class='name first'>" + first + "</span><span class='and'>and</span><span class='name second'>" + second + "</span><span class='tld'>" + tld + "</span>";
 	};
 
 	Domain.prototype = {
