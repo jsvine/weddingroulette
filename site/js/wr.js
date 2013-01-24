@@ -58,7 +58,7 @@
 		this.first = first;
 		this.second = second;
 		this.tld = tld;
-		this.domain = first + "and" + second + tld;
+		this.domain = (first + "and" + second + tld).toLowerCase();
 		this.url = "http://" + this.domain;
 		this.html = "<span class='name first'>" + first + "</span><span class='and'>and</span><span class='name second'>" + second + "</span><span class='tld'>" + tld + "</span>";
 	};
