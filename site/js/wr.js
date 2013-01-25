@@ -7,6 +7,7 @@
 
 	var DEFAULTS = {
 		year: 1986,
+		cutoff: 1000,
 		tlds: [ ".com" ],
 		weight: function () {
 			return Math.pow(Math.random(), Math.E);
@@ -56,13 +57,14 @@
 			var _this = this;
 			$.getJSON(url, function (names) {
 				_this.names = names;
+				_this.top_names = names.slice(0, _this.opts.cutoff || DEFAULTS.cutoff);
 				callback.call(_this);
 			});
 		},
 		// Return a random name. `gender`: 0 for male, 1 for female.
 		sample: function (gender) {
 			var weight = this.opts.weight || Math.random;
-			return this.names[Math.floor(weight() * this.names.length)][gender];
+			return this.top_names[Math.floor(weight() * this.top_names.length)][gender];
 		},
 		pair: function () {
 			var first_gender = Number(Math.random() < 0.5);
