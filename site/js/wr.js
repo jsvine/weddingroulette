@@ -106,12 +106,12 @@
 
 	var names = new Names(DEFAULTS);
 
-	names.fetch(function () {
-		this.generateUntilSuccessful(onStart, onSuccess);
-	});
-
-	ELEMENTS.$refresh.click(function () {
+	var go = function () {
 		names.generateUntilSuccessful(onStart, onSuccess);
-	});
+	};
+
+	names.fetch(go);
+	ELEMENTS.$refresh.click(go);
+	window.addEventListener('shake', go, false);
 
 }).call(this);
