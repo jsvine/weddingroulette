@@ -84,3 +84,17 @@ iframe#f {
 	border: none;
 	overflow: auto;
 }
+
+@media screen and (min-width: 0px) and (max-width: 399px) {
+	#top #domain {
+		font-size: 14px;
+	}
+	#top.max #domain {
+		font-size: 18px;
+	}
+}
+@media screen and (min-width: 400px) and (max-width: 699px) {
+	#top.max #domain {
+		font-size: 28px;
+	}
+}
