@@ -92,7 +92,6 @@
 		ELEMENTS.$domain.removeClass("success");
 		ELEMENTS.$domain.addClass("error");
 		ELEMENTS.$domain.html(this.html);
-		console.log(this.url);
 	}; 
 
 	var onSuccess = function (e) {
