@@ -33,17 +33,18 @@
 	Domain.prototype = {
 		test: function (onStart, onSuccess, onError) {
 			onStart.call(this);
-			var $img = $("<img>");
+			var img = document.createElement("img");
 			var _this = this;
-			$img.attr({ 
-				src: this.url + "/favicon.ico",
-			});
-			$img.load(function (e) {
+			var pending = true;
+			img.src = this.url + "/favicon.ico"
+			img.onload = function (e) {
+				pending = false;
 				onSuccess.call(_this, e);
-			});
-			$img.error(function (e) {
+			};
+			img.onerror = function (e) {
+				pending = false;
 				onError.call(_this, e);
-			});
+			};
 		}	
 	};
 
