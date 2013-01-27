@@ -2,7 +2,8 @@
 	var CONFIG = {
 		first_year: 1880,
 		last_year: 2011,
-		names_dir: "data/names/"
+		names_dir: "data/names/",
+		favicon_timeout: 1e3
 	};
 
 	var DEFAULTS = {
@@ -39,12 +40,23 @@
 			img.src = this.url + "/favicon.ico"
 			img.onload = function (e) {
 				pending = false;
+				delete img;
 				onSuccess.call(_this, e);
 			};
 			img.onerror = function (e) {
 				pending = false;
+				delete img;
 				onError.call(_this, e);
 			};
+			window.setTimeout(function () {
+				if (pending) {
+					console.log("timeout");
+					img.onload = null;
+					img.onerror = null;
+					delete img;
+					onError.call(_this);
+				}
+			}, CONFIG.favicon_timeout);
 		}	
 	};
 
