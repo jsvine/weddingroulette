@@ -50,16 +50,14 @@
 			var img = document.createElement("img");
 			var _this = this;
 			var pending = true;
-			img.src = this.url + "/favicon.ico"
+			img.src = this.url + "/favicon.ico";
 			img.onload = function (e) {
 				pending = false;
-				delete img;
 				onSuccess.call(_this, e);
 				_this.mid_test = false;
 			};
 			img.onerror = function (e) {
 				pending = false;
-				delete img;
 				onError.call(_this, e);
 				_this.mid_test = false;
 			};
@@ -67,7 +65,6 @@
 				if (pending) {
 					img.onload = null;
 					img.onerror = null;
-					delete img;
 					onError.call(_this);
 					_this.mid_test = false;
 				}
@@ -138,7 +135,7 @@
 		}
 
 		var updateLocalStorage = function () {
-			if (window.localStorage) {
+			if (window.localStorage && window.JSON) {
 				localStorage.setItem("custom_settings", JSON.stringify(names.opts));
 				localStorage.setItem("settings_timestamp", Math.floor(new Date().getTime() / 1000));
 			}
@@ -156,7 +153,7 @@
 
 		// Listen for cutoff changes.
 		ELEMENTS.$cutoff_setting.change(function (e) {
-			var cutoff = parseInt($(this).val());
+			var cutoff = parseInt($(this).val(), 10);
 			names.opts.cutoff = cutoff;
 			names.top_names = names.names.slice(0, cutoff);
 			updateLocalStorage();
@@ -164,7 +161,7 @@
 
 		// Listen for year changes.
 		ELEMENTS.$year_setting.change(function (e) {
-			var year = parseInt($(this).val());
+			var year = parseInt($(this).val(), 10);
 			names.opts.year = year;
 			names.fetch(function () {});
 			updateLocalStorage();
@@ -176,7 +173,7 @@
 		});
 	};
 
-	var custom_settings = window.localStorage ? JSON.parse(localStorage.getItem("custom_settings")) : null;
+	var custom_settings = (window.localStorage && window.JSON) ? JSON.parse(localStorage.getItem("custom_settings")) : null;
 	var names = new Names(custom_settings || DEFAULTS);
 
 	var go = function () {
