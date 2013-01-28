@@ -3,25 +3,35 @@
 		first_year: 1880,
 		last_year: 2011,
 		max_names: 1000,
+		cutoffs: [ 10, 50, 100, 500, 1000 ],
 		possible_tlds: [ ".com", ".net" ],
 		names_dir: "data/names/",
-		favicon_timeout: 1e3
+		favicon_timeout: 1e3,
+		weights: {
+			e: function () {
+				return Math.pow(Math.random(), Math.E);
+			}
+		}
 	};
 
+	var WEI
 	var DEFAULTS = {
 		year: 1986,
 		cutoff: 1000,
 		tlds: [ ".com" ],
-		weight: function () {
-			return Math.pow(Math.random(), Math.E);
-		}
+		weight: "e"
 	};
 
 	var ELEMENTS = {
+		$body: $(document.body),
 		$f: $("iframe#f"),
 		$top: $("#top"),
+		$domain: $("#domain"),
 		$refresh: $("#refresh"),
-		$domain: $("#domain")
+		$settings_toggle: $("#settings_toggle"),
+		$settings: $("#settings"),
+		$cutoff_setting: $("#cutoff_setting"),
+		$year_setting: $("#year_setting")
 	};
 
 	var Domain = function (first, second, tld) {
@@ -78,7 +88,7 @@
 		},
 		// Return a random name. `gender`: 0 for male, 1 for female.
 		sample: function (gender) {
-			var weight = this.opts.weight || Math.random;
+			var weight = CONFIG.weights[this.opts.weight] || Math.random;
 			return this.top_names[Math.floor(weight() * this.top_names.length)][gender];
 		},
 		pair: function () {
@@ -118,14 +128,62 @@
 		}, 0.5 * 1e3);
 	};
 
-	var names = new Names(DEFAULTS);
+	var buildSettings = function (names) {
+		var years = [];
+		for (var i = CONFIG.last_year; i > CONFIG.first_year - 1; i--) {
+			years.push(i);
+		}
+
+		var updateLocalStorage = function () {
+			if (window.localStorage) {
+				localStorage.setItem("custom_settings", JSON.stringify(names.opts));
+				localStorage.setItem("settings_timestamp", Math.floor(new Date().getTime() / 1000));
+			}
+		};
+
+		// Add cutoff options.
+		ELEMENTS.$cutoff_setting.html($.map(CONFIG.cutoffs, function (cutoff, i) {
+			return $("<option value='" + cutoff + "'" + (cutoff === names.opts.cutoff ? "selected" : "") + ">" + cutoff + "</option>");
+		}));
+
+		// Add year options.
+		ELEMENTS.$year_setting.html($.map(years, function (year, i) {
+			return $("<option value='" + year + "'" + (year === names.opts.year ? "selected" : "") + ">" + year + "</option>");
+		}));
+
+		// Listen for cutoff changes.
+		ELEMENTS.$cutoff_setting.change(function (e) {
+			var cutoff = parseInt($(this).val());
+			names.opts.cutoff = cutoff;
+			names.top_names = names.names.slice(0, cutoff);
+			updateLocalStorage();
+		});
+
+		// Listen for year changes.
+		ELEMENTS.$year_setting.change(function (e) {
+			var year = parseInt($(this).val());
+			names.opts.year = year;
+			names.fetch(function () {});
+			updateLocalStorage();
+		});
+
+		// Listen for settings-toggle clicks.
+		ELEMENTS.$settings_toggle.click(function () {
+			ELEMENTS.$body.toggleClass("settings");
+		});
+	};
+
+	var custom_settings = window.localStorage ? JSON.parse(localStorage.getItem("custom_settings")) : null;
+	var names = new Names(custom_settings || DEFAULTS);
 
 	var go = function () {
+		ELEMENTS.$body.removeClass("settings");
 		names.generateUntilSuccessful(onStart, onSuccess);
 	};
 
 	names.fetch(go);
 	ELEMENTS.$refresh.click(go);
 	window.addEventListener('shake', go, false);
+	buildSettings(names);
 
 }).call(this);
