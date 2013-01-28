@@ -102,7 +102,6 @@
 
 	var onStart = function (e) {
 		ELEMENTS.$f.attr({ "src": "" });
-		ELEMENTS.$refresh.hide();
 		ELEMENTS.$top.addClass("max");
 		ELEMENTS.$domain.removeClass("success");
 		ELEMENTS.$domain.addClass("error");
@@ -116,7 +115,6 @@
 		window.setTimeout(function () {
 			ELEMENTS.$top.removeClass("max");
 			ELEMENTS.$f.show();
-			ELEMENTS.$refresh.show();
 		}, 0.5 * 1e3);
 	};
 
