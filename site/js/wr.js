@@ -2,6 +2,8 @@
 	var CONFIG = {
 		first_year: 1880,
 		last_year: 2011,
+		max_names: 1000,
+		possible_tlds: [ ".com", ".net" ],
 		names_dir: "data/names/",
 		favicon_timeout: 1e3
 	};
