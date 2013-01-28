@@ -14,7 +14,6 @@
 		}
 	};
 
-	var WEI
 	var DEFAULTS = {
 		year: 1986,
 		cutoff: 1000,
