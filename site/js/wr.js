@@ -173,7 +173,7 @@
 		});
 	};
 
-	var custom_settings = (window.localStorage && window.JSON) ? JSON.parse(localStorage.getItem("custom_settings")) : null;
+	var custom_settings = (window.JSON && window.localStorage && localStorage.getItem("custom_settings")) ? JSON.parse(localStorage.getItem("custom_settings")) : null;
 	var names = new Names(custom_settings || DEFAULTS);
 
 	var go = function () {
