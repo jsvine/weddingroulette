@@ -40,10 +40,12 @@
 		this.domain = (first + "and" + second + tld).toLowerCase();
 		this.url = "http://" + this.domain;
 		this.html = "<span class='name first'>" + first + "</span><span class='and'>and</span><span class='name second'>" + second + "</span><span class='tld'>" + tld + "</span>";
+		this.mid_test = false;
 	};
 
 	Domain.prototype = {
 		test: function (onStart, onSuccess, onError) {
+			this.mid_test = true;
 			onStart.call(this);
 			var img = document.createElement("img");
 			var _this = this;
@@ -53,19 +55,21 @@
 				pending = false;
 				delete img;
 				onSuccess.call(_this, e);
+				_this.mid_test = false;
 			};
 			img.onerror = function (e) {
 				pending = false;
 				delete img;
 				onError.call(_this, e);
+				_this.mid_test = false;
 			};
 			window.setTimeout(function () {
 				if (pending) {
-					console.log("timeout");
 					img.onload = null;
 					img.onerror = null;
 					delete img;
 					onError.call(_this);
+					_this.mid_test = false;
 				}
 			}, CONFIG.favicon_timeout);
 		}	
@@ -102,8 +106,8 @@
 		},
 		generateUntilSuccessful: function (onStart, onSuccess) {
 			var _this = this;
-			var domain = this.generateDomain();
-			domain.test(onStart, onSuccess, function (e) {
+			this.domain = this.generateDomain();
+			this.domain.test(onStart, onSuccess, function (e) {
 				_this.generateUntilSuccessful(onStart, onSuccess);
 			});
 		}
@@ -176,6 +180,7 @@
 	var names = new Names(custom_settings || DEFAULTS);
 
 	var go = function () {
+		if (names.domain && names.domain.mid_test) { return; }
 		ELEMENTS.$body.removeClass("settings");
 		names.generateUntilSuccessful(onStart, onSuccess);
 	};
